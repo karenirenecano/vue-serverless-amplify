@@ -4,6 +4,7 @@
          <amplify-authenticator></amplify-authenticator>
       </div>
       <div v-if="signedIn">
+        <div v-if="user">Hi {{ user.attributes.email }}</div>
         <amplify-sign-out class="signout"></amplify-sign-out>
         <div class="container">
           <photo-picker
@@ -31,6 +32,7 @@ export default {
   async beforeCreate() {
     try {
       await Auth.currentAuthenticatedUser()
+            
       this.signedIn = true
     } catch (err) {
       this.signedIn = false
@@ -38,6 +40,12 @@ export default {
     AmplifyEventBus.$on('authState', info => {
       if (info === 'signedIn') {
         this.signedIn = true
+        Auth.currentAuthenticatedUser().then(userLoaded => {
+          this.$store.dispatch('setLoggedInUser', {
+            user: userLoaded
+          });
+        });
+        
       } else {
         this.signedIn = false
       }
@@ -47,6 +55,12 @@ export default {
     return {
       photoPickerConfig,
       signedIn: false
+    }
+  },
+  computed: {
+    user: function () {
+        let loggedInUser = this.$store.getters.loggedInUser
+        return (loggedInUser) ? loggedInUser : null
     }
   }
 }

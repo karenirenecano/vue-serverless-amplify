@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="amplifyUI.formSection" style="width: 380px">
+  <div v-bind:class="amplifyUI.formSection">
     <div v-bind:class="amplifyUI.sectionHeader">{{options.header}}</div>
     <div v-bind:class="amplifyUI.sectionBody">
       <img 
