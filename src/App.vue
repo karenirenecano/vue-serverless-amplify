@@ -6,10 +6,10 @@
       <div v-if="signedIn">
         <amplify-sign-out class="signout"></amplify-sign-out>
         <div class="container">
-          <amplify-photo-picker
+          <photo-picker
             v-bind:photoPickerConfig="photoPickerConfig"
-          ></amplify-photo-picker>
-          <amplify-s3-album path="images/"></amplify-s3-album>
+          ></photo-picker>
+          <s3-album path="files/"></s3-album>
         </div>
       </div>
     </div>
@@ -17,11 +17,17 @@
 <script>
 import { AmplifyEventBus } from 'aws-amplify-vue'
 import { Auth } from 'aws-amplify'
+import PhotoPicker from "./components/storage/PhotoPicker";
+import S3Album from "./components/storage/S3Album";
+
 const photoPickerConfig = {
-  path: 'images/',
+  path: 'files/',
 }
 export default {
   name: 'app',
+  components: {
+    PhotoPicker, S3Album
+  },
   async beforeCreate() {
     try {
       await Auth.currentAuthenticatedUser()
