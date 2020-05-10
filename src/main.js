@@ -6,7 +6,8 @@ import aws_exports from './aws-exports';
 
 Vue.config.productionTip = false
 
-Amplify.configure(aws_exports);Vue.use(AmplifyPlugin, AmplifyModules);
+Amplify.configure(aws_exports);
+Vue.use(AmplifyPlugin, AmplifyModules);
 
 
 new Vue({

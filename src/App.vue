@@ -5,13 +5,21 @@
       </div>
       <div v-if="signedIn">
         <amplify-sign-out class="signout"></amplify-sign-out>
-        <h1>Hello World</h1>
+        <div class="container">
+          <amplify-photo-picker
+            v-bind:photoPickerConfig="photoPickerConfig"
+          ></amplify-photo-picker>
+          <amplify-s3-album path="images/"></amplify-s3-album>
+        </div>
       </div>
     </div>
 </template>
 <script>
 import { AmplifyEventBus } from 'aws-amplify-vue'
 import { Auth } from 'aws-amplify'
+const photoPickerConfig = {
+  path: 'images/',
+}
 export default {
   name: 'app',
   async beforeCreate() {
@@ -31,7 +39,9 @@ export default {
   },
   data () {
     return {
-      signedIn: false    }
+      photoPickerConfig,
+      signedIn: false
+    }
   }
 }
 </script>
@@ -46,6 +56,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.container {
+  padding: 40px;
 }
 .signout {
   background-color: #ededed;
